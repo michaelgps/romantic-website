@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>致花花</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&family=EB+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+  <!-- 手账/楷体风格中文字体（参考视频的字体感觉），非宋体 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+  <link rel="stylesheet" href="style.css?v=31" />
+</head>
+<body>
+  <!-- 背景音乐（暂未启用，之后放 music/song.mp3） -->
+  <audio id="bgm" loop></audio>
+
+  <!-- 开场：动态视频背景，点一次开始 -->
+  <div id="startOverlay" class="start-overlay">
+    <video class="start-bg-video" autoplay loop muted playsinline preload="auto" poster="photos/bg.png">
+      <source src="video/opening.mp4" type="video/mp4">
+    </video>
+    <div class="start-inner">
+      <p class="start-sub" id="startSub">在阿克拉西亚的星空下，我遇见了你</p>
+      <h1 class="start-title">致 <span id="startName">花花</span></h1>
+      <button id="startBtn" class="start-btn" aria-label="播放">▶</button>
+    </div>
+  </div>
+
+  <!-- 电影舞台：各幕由 JS 生成 -->
+  <main id="stage" class="stage"></main>
+
+  <!-- 进度条 -->
+  <div id="progress" class="progress hidden"><div id="progressFill" class="progress-fill"></div></div>
+
+  <!-- 结尾重看 -->
+  <button id="replayBtn" class="replay-btn hidden">↻ 重看</button>
+
+  <script src="script.js?v=31"></script>
+</body>
+</html>

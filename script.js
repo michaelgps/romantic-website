@@ -21,7 +21,7 @@ const CONFIG = {
     "谢谢你陪我走了这么远。生日快乐，花花。\n" +
     "愿你往后的每段旅程，都有光，也有人同行。",
 
-  openHold: 8800,
+  openHold: 9300,
   letterLineFade: 1100,
   letterHoldAfter: 4000
 };
@@ -261,8 +261,8 @@ function startExperience() {
 
   after(900, () => startSub.classList.add("show"));
   after(3150, () => startTitle.classList.add("show"));
-  after(5450, () => introLine1.classList.add("show"));
-  after(CONFIG.openHold || 8800, () => {
+  after(5950, () => introLine1.classList.add("show"));
+  after(CONFIG.openHold || 9300, () => {
     startOverlay.classList.add("hidden");
     document.getElementById("progress").classList.remove("hidden");
     go(0);

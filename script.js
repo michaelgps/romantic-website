@@ -1,10 +1,7 @@
 const CONFIG = {
   name: "花花",
   startSub: "在 Lost Ark 的星光下，我遇见了你",
-  introLines: [
-    "有些相遇，会在星光里停很久。",
-    "这一路的回忆，想慢慢说给你听。"
-  ],
+  introLine: "这一路的回忆，我想慢慢说给你听。",
 
   film: "video/film.mp4",
   sceneStarts: [0.5, 6.9, 13.3, 19.7, 26.1, 32.5],
@@ -24,7 +21,7 @@ const CONFIG = {
     "谢谢你陪我走了这么远。生日快乐，花花。\n" +
     "愿你往后的每段旅程，都有光，也有人同行。",
 
-  openHold: 7600,
+  openHold: 8800,
   letterLineFade: 1100,
   letterHoldAfter: 4000
 };
@@ -32,15 +29,15 @@ const CONFIG = {
 const stage = document.getElementById("stage");
 const startOverlay = document.getElementById("startOverlay");
 const startBtn = document.getElementById("startBtn");
+const startSub = document.getElementById("startSub");
+const startTitle = document.querySelector(".start-title");
 const introLine1 = document.getElementById("introLine1");
-const introLine2 = document.getElementById("introLine2");
 const progressFill = document.getElementById("progressFill");
 const replayBtn = document.getElementById("replayBtn");
 
 document.getElementById("startName").textContent = CONFIG.name;
-document.getElementById("startSub").textContent = CONFIG.startSub;
-introLine1.textContent = CONFIG.introLines[0];
-introLine2.textContent = CONFIG.introLines[1];
+startSub.textContent = CONFIG.startSub;
+introLine1.textContent = CONFIG.introLine;
 
 (function makeEmbers() {
   const ov = document.getElementById("startOverlay");
@@ -262,9 +259,10 @@ function startExperience() {
     try { fv.load(); } catch (e) {}
   }
 
-  after(950, () => introLine1.classList.add("show"));
-  after(3350, () => introLine2.classList.add("show"));
-  after(CONFIG.openHold || 7600, () => {
+  after(900, () => startSub.classList.add("show"));
+  after(3150, () => startTitle.classList.add("show"));
+  after(5450, () => introLine1.classList.add("show"));
+  after(CONFIG.openHold || 8800, () => {
     startOverlay.classList.add("hidden");
     document.getElementById("progress").classList.remove("hidden");
     go(0);
@@ -276,8 +274,5 @@ startBtn.addEventListener("click", startExperience);
 replayBtn.addEventListener("click", () => {
   replayBtn.classList.add("hidden");
   clearTimeout(letterTimer);
-  if (bgm) {
-    try { bgm.currentTime = 0; } catch (e) {}
-  }
   go(0);
 });

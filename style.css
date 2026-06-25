@@ -31,28 +31,30 @@ body { color: var(--text); font-family: "Noto Serif SC", "EB Garamond", serif; }
 .start-inner { position: relative; z-index: 2; width: min(92vw, 760px); padding: 24px; }
 #startName { animation: nameGlow 4.5s ease-in-out infinite; }
 /* 三段依次淡入：第一行 → 第二行 → 按钮。第一行与标题同款毛笔字，字号小一点 */
-.start-sub { font-family: "Ma Shan Zheng", var(--kai); color: #dfe3ff; letter-spacing: 3px; font-weight: 400; font-size: clamp(20px, 6vw, 30px); margin-bottom: 26px; text-shadow: 0 2px 14px rgba(0,0,0,.6); opacity: 0; animation: fadeIn 2.2s ease 1.5s forwards; }
-.start-title { font-family: "Ma Shan Zheng", serif; font-weight: 400; font-size: clamp(40px, 12vw, 72px); margin-bottom: 38px; text-shadow: 0 2px 20px rgba(0,0,0,.6); opacity: 0; animation: fadeIn 2.2s ease 4.0s forwards; }
+.start-sub { font-family: "Ma Shan Zheng", var(--kai); color: #dfe3ff; letter-spacing: 3px; font-weight: 400; font-size: clamp(24px, 6.4vw, 40px); margin-bottom: 26px; text-shadow: 0 2px 14px rgba(0,0,0,.6); opacity: 0; transform: translateY(18px); transition: opacity 1.5s ease, transform 1.5s ease; }
+.start-title { font-family: "Ma Shan Zheng", serif; font-weight: 400; font-size: clamp(44px, 12vw, 78px); margin-bottom: 0; text-shadow: 0 2px 20px rgba(0,0,0,.6); opacity: 0; transform: translateY(18px); transition: opacity 1.5s ease, transform 1.5s ease; }
 #startName { color: var(--gold); text-shadow: 0 0 36px rgba(255,226,168,.6); }
-.start-btn { min-height: 64px; max-width: min(86vw, 360px); padding: 0 28px; border-radius: 999px;
+.start-btn { width: clamp(92px, 22vw, 128px); height: clamp(92px, 22vw, 128px); padding: 0 0 0 clamp(4px, 1vw, 8px); border-radius: 50%;
   background: rgba(0,0,0,.28); border: 1px solid rgba(255,226,168,.6); color: var(--text);
-  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-  font-size: clamp(17px, 4.6vw, 22px); line-height: 1; font-family: var(--kai); letter-spacing: 1px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: clamp(38px, 9vw, 58px); line-height: 1; font-family: var(--kai); letter-spacing: 0;
   cursor: pointer; transition: all .4s ease; backdrop-filter: blur(4px);
-  opacity: 0; animation: fadeIn 2.0s ease 6.5s forwards, glow 2.6s ease-in-out 8.7s infinite; }
+  opacity: 0; animation: fadeIn 1.4s ease .8s forwards, glow 2.6s ease-in-out 2.4s infinite; }
 .start-btn:hover { background: rgba(255,226,168,.18); transform: translateY(-2px); }
 .start-btn-icon { font-family: "Noto Serif SC", serif; font-size: .95em; transform: translateY(1px); }
-.start-btn-text { white-space: nowrap; }
-.start-overlay.playing .start-sub,
-.start-overlay.playing .start-title,
 .start-overlay.playing .start-btn {
   animation: none;
   opacity: 0;
   pointer-events: none;
   transition: opacity .8s ease;
 }
-.intro-lines { position: absolute; left: 50%; top: 50%; width: min(86vw, 760px); transform: translate(-50%, -50%); pointer-events: none; }
-.intro-line { font-family: var(--kai); font-weight: 400; color: #f6edcf; font-size: clamp(25px, 6.6vw, 44px); line-height: 1.55; letter-spacing: 2px;
+.start-sub.show,
+.start-title.show {
+  opacity: 1;
+  transform: none;
+}
+.intro-lines { position: absolute; left: 50%; top: calc(50% + 118px); width: min(86vw, 760px); transform: translateX(-50%); pointer-events: none; }
+.intro-line { font-family: var(--kai); font-weight: 400; color: #dfe3ff; font-size: clamp(25px, 6.6vw, 44px); line-height: 1.55; letter-spacing: 2px;
   text-shadow: 0 2px 18px rgba(0,0,0,.72), 0 0 28px rgba(255,226,168,.22);
   opacity: 0; transform: translateY(18px); transition: opacity 1.5s ease, transform 1.5s ease; }
 .intro-line + .intro-line { margin-top: 18px; }

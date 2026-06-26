@@ -33,6 +33,7 @@ const startSub = document.getElementById("startSub");
 const startTitle = document.querySelector(".start-title");
 const introLine1 = document.getElementById("introLine1");
 const progressFill = document.getElementById("progressFill");
+const filmToggleBtn = document.getElementById("filmToggleBtn");
 const replayBtn = document.getElementById("replayBtn");
 
 document.getElementById("startName").textContent = CONFIG.name;
@@ -115,6 +116,7 @@ function go(i) {
   current = i;
   const it = items[i];
   it.el.classList.add("active");
+  filmToggleBtn.classList.toggle("hidden", it.type !== "film");
 
   if (it.type === "film") playFilm(it);
   else if (it.type === "letter") {
@@ -184,15 +186,27 @@ function playFilm(it) {
     v.removeEventListener("timeupdate", onTime);
     go(current + 1);
   };
+  const scheduleFallback = () => {
+    after(65000, () => {
+      if (current !== 0 || advanced) return;
+      if (v.paused && !v.ended) {
+        scheduleFallback();
+        return;
+      }
+      next();
+    });
+  };
 
   after(150, () => {
     try { v.currentTime = 0; } catch (e) {}
     const p = v.play();
     if (p && p.catch) p.catch(() => {});
+    updateFilmToggle();
   });
   v.onended = () => next();
   v.onerror = () => after(45000, next);
-  after(65000, next);
+  scheduleFallback();
+  updateFilmToggle();
 }
 
 function playLetter() {
@@ -247,6 +261,26 @@ function ensureBgm() {
   if (p && p.then) p.then(() => { bgmStarted = true; }).catch(() => {});
   else bgmStarted = true;
 }
+
+function updateFilmToggle() {
+  const filmVideo = items[0] && items[0].video;
+  if (!filmVideo) return;
+  const paused = filmVideo.paused;
+  filmToggleBtn.textContent = paused ? "▶" : "Ⅱ";
+  filmToggleBtn.setAttribute("aria-label", paused ? "继续画面" : "暂停画面");
+}
+
+filmToggleBtn.addEventListener("click", () => {
+  const filmVideo = items[0] && items[0].video;
+  if (!filmVideo) return;
+  if (filmVideo.paused) {
+    const p = filmVideo.play();
+    if (p && p.catch) p.catch(() => {});
+  } else {
+    filmVideo.pause();
+  }
+  updateFilmToggle();
+});
 
 function startExperience() {
   if (started) return;

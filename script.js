@@ -38,11 +38,8 @@ const replayBtn = document.getElementById("replayBtn");
 
 function logVisit(eventName) {
   const url = `/__visit.gif?e=${encodeURIComponent(eventName)}&t=${Date.now()}`;
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon(url);
-    return;
-  }
-  fetch(url, { method: "GET", cache: "no-store", keepalive: true }).catch(() => {});
+  const img = new Image();
+  img.src = url;
 }
 
 document.getElementById("startName").textContent = CONFIG.name;

@@ -36,6 +36,15 @@ const progressFill = document.getElementById("progressFill");
 const filmToggleBtn = document.getElementById("filmToggleBtn");
 const replayBtn = document.getElementById("replayBtn");
 
+function logVisit(eventName) {
+  const url = `/__visit.gif?e=${encodeURIComponent(eventName)}&t=${Date.now()}`;
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(url);
+    return;
+  }
+  fetch(url, { method: "GET", cache: "no-store", keepalive: true }).catch(() => {});
+}
+
 document.getElementById("startName").textContent = CONFIG.name;
 startSub.textContent = CONFIG.startSub;
 introLine1.textContent = CONFIG.introLine;
@@ -285,6 +294,7 @@ filmToggleBtn.addEventListener("click", () => {
 function startExperience() {
   if (started) return;
   started = true;
+  logVisit("play");
   ensureBgm();
   startOverlay.classList.add("playing");
   const fv = items[0].video;
@@ -304,6 +314,9 @@ function startExperience() {
 }
 
 startBtn.addEventListener("click", startExperience);
+window.addEventListener("load", () => {
+  setTimeout(() => logVisit("open"), 400);
+});
 
 replayBtn.addEventListener("click", () => {
   replayBtn.classList.add("hidden");
